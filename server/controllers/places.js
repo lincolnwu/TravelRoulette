@@ -1,9 +1,11 @@
 
+const home = (req, res) => {
+    res.send("hello")
+}
+
 // Controller to handle a complete random place from the homepage
 const randomPlaceComplete = (req, res) => {
-    res.render("place", {
-
-    });
+    res.send("get random place")
 }
 
 // Handle choosing a region
@@ -19,5 +21,8 @@ const randomPlaceRegion = (req, res) => {
 
 
 module.exports = {
-    place
+    home,
+    randomPlaceComplete,
+    chooseRegion,
+    randomPlaceRegion
 };

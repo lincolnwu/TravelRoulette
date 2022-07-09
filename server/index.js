@@ -1,11 +1,18 @@
 const express = require('express')
 const app = express()
+const cors = require('cors');
+app.use(cors());
+app.use(express.json());
+
 
 require('dotenv').config()
 const api_key = process.env.GEOAPIFY_API_KEY;
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, console.log("Server started for port: " + PORT))
+
+const placesRoutes = require("./routes/placesRoutes")
+app.use('/', placesRoutes)
 
 
 let locationJSON = require('./locations.json')
@@ -59,16 +66,16 @@ const completeRandom = (locationJSON) => {
 // For a random city within a chosen region
 const randomWithRegion = (locationJSON, region) => {
     let countries = locationJSON[region]
-    console.log(countries)
+    //console.log(countries)
     let randomCountryKeys = Object.keys(countries)
-    console.log(randomCountryKeys)
+    //console.log(randomCountryKeys)
     let randomCountryIndex = Math.floor(Math.random() * randomCountryKeys.length)
-    console.log(randomCountryIndex)
+    //console.log(randomCountryIndex)
     let randomCountryKey = randomCountryKeys[randomCountryIndex]
-    console.log("Random country:", randomCountryKey)
+    //console.log("Random country:", randomCountryKey)
 
     let cities = locationJSON[region][randomCountryKey]
-    console.log(cities)
+    //console.log(cities)
     let randomCityKeys = Object.keys(cities)
     let randomCityIndex = Math.floor(Math.random() * randomCityKeys.length)
     let randomCityKey = randomCityKeys[randomCityIndex]
