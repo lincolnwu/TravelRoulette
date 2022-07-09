@@ -48,21 +48,35 @@ const getRandomCity = (randomRegionKey, randomCountryKey) => {
     return randomCityKey
 }
 
-// For a completely random location
+// For a completely random location (homepage)
 const completeRandom = (locationJSON) => {
-    let randomDestination = getRandomCity(getRandomCountry(getRandomRegionKey(locationJSON)))
-    return randomDestination
+    let randomRegion = getRandomRegionKey(locationJSON)
+    let randomCountry = getRandomCountry(randomRegion)
+    let randomCity = getRandomCity(randomRegion, randomCountry)
+    return randomCity
 }
 
-const randomWithRegion = (region) => {
+// For a random city within a chosen region
+const randomWithRegion = (locationJSON, region) => {
+    let countries = locationJSON[region]
+    console.log(countries)
+    let randomCountryKeys = Object.keys(countries)
+    console.log(randomCountryKeys)
+    let randomCountryIndex = Math.floor(Math.random() * randomCountryKeys.length)
+    console.log(randomCountryIndex)
+    let randomCountryKey = randomCountryKeys[randomCountryIndex]
+    console.log("Random country:", randomCountryKey)
 
+    let cities = locationJSON[region][randomCountryKey]
+    console.log(cities)
+    let randomCityKeys = Object.keys(cities)
+    let randomCityIndex = Math.floor(Math.random() * randomCityKeys.length)
+    let randomCityKey = randomCityKeys[randomCityIndex]
+    return randomCityKey
 }
 
+let completeRan = completeRandom(locationJSON)
+console.log(completeRan)
 
-let randRegion = getRandomRegionKey(locationJSON)
-//console.log(randRegion)
-let randCountry = getRandomCountry(randRegion)
-//console.log(randCountry)
-let randCity = getRandomCity(randRegion, randCountry)
-console.log(randCity)
-
+let randomCountries = randomWithRegion(locationJSON, 'Asia')
+console.log(randomCountries)
