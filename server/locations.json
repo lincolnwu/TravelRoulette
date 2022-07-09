@@ -1,0 +1,211 @@
+{
+    "North America": {
+        "United States": {
+            "New York City, New York": {},
+            "Los Angeles, California": {},
+            "Chicago, Illinois": {},
+            "Boston, Massachusetts": {},
+            "Philadelphia, Pennsylvania": {},
+            "Washington, D.C": {},
+            "San Francisco, California": {},
+            "Austin, Texas": {}
+        },
+        "Canada": {
+            "Toronto, Ontario": {},
+            "Vancouver, British Columbia": {},
+            "Montreal, Quebec": {},
+            "Ottawa, Ontario": {}
+        },
+        "Mexico": {
+            "Mexico City, Mexico": {},
+            "Cancun, Mexico": {},
+            "Chichen Itza, Mexico": {}
+        }
+    },
+    "South America": {
+        "Argentina":{
+            "Buenos Aires, Argentia": {},
+            "Cordoba, Argentia": {},
+            "Rosario, Argentina": {}
+        },
+        "Brazil": {
+            "Sao Paulo, Brazil": {},
+            "Rio de Janeiro, Brazil": {},
+            "Brasilia, Brazil": {}
+        },
+        "Chile": {
+            "Santiago, Chile": {},
+            "Valparaiso, Chile": {},
+            "Puerto Natales": {}
+        },
+        "Peru": {
+            "Machu Picchu, Peru": {},
+            "Lima, Peru" : {}
+        },
+        "Colombia": {
+            "Cartagena, Colombia": {},
+            "Bogota, Peru": {}
+        },
+        "Ecuador": {
+            "Quito, Ecuador": {},
+            "Cuenca, Ecuador": {}
+        },
+        "Bolivia": {
+            "La Paz, Bolivia": {},
+            "Sucre, Bolivia": {}
+        },
+        "Venezuela": {
+            "Caracas, Venezuela": {},
+            "Maracaibo, Venezuela": {}
+        },
+        "Paraguay": {
+            "Asuncion, Paraguay": {},
+            "Encarnacion, Paraguay": {}
+        }
+    },
+    "Asia":{
+        "China": {
+            "Beijing, China": {},
+            "Shanghai, China": {},
+            "Guangzhou, China": {}
+        },
+        "Thailand": {
+            "Bangkok, Thailand": {},
+            "Phuket, Thailand": {},
+            "Chiang Mai, Thailand": {}
+        },
+        "Japan": {
+            "Tokyo, Japan": {},
+            "Kyoto, Japan": {},
+            "Osaka, Japan": {}
+        },
+        "Malaysia": {
+            "Kuala Lumpur, Malaysia": {},
+            "George Town, Malaysia": {}
+        },
+        "Vietnam": {
+            "Hanoi, Vietnam": {},
+            "Ho Chi Minh City, Vietnam": {}
+        },
+        "India": {
+            "Mumbai, India": {},
+            "New Delhi, India": {}
+        },
+        "South Korea": {
+            "Seoul, South Korea": {},
+            "Busan, South Korea": {}
+        },
+        "Indonesia": {
+            "Bali, Indonesia": {},
+            "Jakarta, Indonesia": {}
+        }
+    },
+    "Oceania": {
+        "Australia": {
+            "Sydney, Australia": {},
+            "Melbourne, Australia": {},
+            "Brisbane, Austrlia": {}
+        },
+        "New Zealand": {
+            "Auckland, New Zealand": {},
+            "Queenstown, New Zealand": {}
+        },
+        "Fiji": {
+            "Suva, Fiji": {},
+            "Nadi, Fiji": {}
+        }
+    },
+    "Africa": {
+        "Egpyt": {
+            "Cairo, Egpyt": {},
+            "Luxor, Egpyt": {}
+        },
+        "South Africa": {
+            "Cape Town, South Africa": {},
+            "Johannesburg, South Africa": {}
+        },
+        "Morocco": {
+            "Marrakesh, Morocco": {},
+            "Casablanca, Morocco": {}
+        },
+        "Tanzania": {
+            "Serengeti, Tanzania": {},
+            "Unguja, Tanzania": {}
+        },
+        "Tunisia": {
+            "Tunis, Tunisia": {},
+            "Djerba, Tunisia": {}
+        },
+        "Mauritius": {
+            "Port Louis, Mauritius": {},
+            "Grand Baie, Mauritius": {}
+        },
+        "Uganda": {
+            "Kampala, Uganda": {}
+        },
+        "Nigeria": {
+            "Lagos, Nigeria": {},
+            "Abuja, Nigeria": {}
+        },
+        "Ghana": {
+            "Accra, Ghana": {},
+            "Kumasi, Ghana": {}
+        },
+        "Kenya": {
+            "Nairobi, Kenya": {}
+        }
+    },
+    "Europe": {
+        "Spain": {
+            "Barcelona, Spain": {},
+            "Madrid, Spain": {},
+            "Seville, Spain": {}
+        },
+        "France": {
+            "Paris, France": {},
+            "Nice, France": {},
+            "Bordeaux, France": {}
+        },
+        "United Kingdom": {
+            "London, United Kingdom": {},
+            "Edinburgh, United Kingdom": {},
+            "Manchester, United Kingdom": {}
+        },
+        "Italy": {
+            "Rome, Italy": {},
+            "Venice, Italy": {},
+            "Florence, Italy": {}
+        },
+        "Germany": {
+            "Berlin, Germany": {},
+            "Munich, Germany": {},
+            "Frankfurt, Germany": {}
+        },
+        "Turkey": {
+            "Istanbul, Turkey": {},
+            "Cappadocia, Turkey": {},
+            "Antalya, Turkey": {}
+        },
+        "Austria": {
+            "Vienna, Austria": {},
+            "Salzburg, Austria": {},
+            "Innsbruck, Austria": {}
+        },
+        "Portugal": {
+            "Lisbon, Portugal": {},
+            "Porto, Portugual": {},
+            "Madeira, Portugual": {}
+        },
+        "Greece": {
+            "Athens, Greece": {},
+            "Santorini, Greece": {},
+            "Mykonos, Greece": {}
+        },
+        "Netherlands": {
+            "Amsterdam, Netherlands": {},
+            "Rotterdam, Netherlands": {},
+            "Utrecht, Netherlands": {}
+        }
+    }
+
+}
