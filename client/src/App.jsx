@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { GlobalLocation, HomePage, LocationDetails } from './components'
+import { ErrorPage, GlobalLocation, HomePage, LocationDetails } from './components'
 import { BrowserRouter as Router, Routes, Route, NavLink} from 'react-router-dom';
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/places/:location" element={<LocationDetails />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </div>
     </Router>
