@@ -9,8 +9,9 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/places/:location" element={<LocationDetails />} />
           <Route path="/*" element={<ErrorPage />} />
+          <Route path="/places/:location" element={<LocationDetails />} />
+          <Route path="/places/*" element={<ErrorPage />} />
         </Routes>
       </div>
     </Router>
