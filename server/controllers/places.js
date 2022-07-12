@@ -61,12 +61,15 @@ const chooseRegion = (req, res) => {
 }
 
 // Handle random location for a region
+// app.get('/randomPlaceRegion/:region')
 const randomPlaceRegion = (req, res) => {
-    
+    let region = req.params.region
+    // console.log(region)
+    res.send(region)
 }
 
 // Redirect after choosing a random location
-// app.get('/places?location={query}')
+// app.get('/places/:location')
 const placesDetails = (req, res) => {
     console.log("/places endpoint worked")
     console.log(req.params.location)

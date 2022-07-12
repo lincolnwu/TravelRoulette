@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate, useHistory} from 'react-router-dom';
 
@@ -25,12 +25,16 @@ const HomePage = () => {
         }
     }
 
-    const handleRegion = async (e) => {
+    const handleRegion = (e) => {
+
         e.preventDefault();
+        
         try {
-            
+            const region = e.target.textContent
+            console.log(region)
+            navigate(`/region/${region}`, { state : `${region}`})
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
@@ -39,12 +43,12 @@ const HomePage = () => {
             <button onClick={handleSubmit}>Generate a Random Location!</button>
             <div>
                 <ul>
-                <button>North America</button>
-                <button>South America</button>
-                <button>Europe</button>
-                <button>Asia</button>
-                <button>Oceania</button>
-                <button>Africa</button>
+                <button id="north-america" onClick={handleRegion}>North America</button>
+                <button onClick={handleRegion}>South America</button>
+                <button onClick={handleRegion}>Europe</button>
+                <button onClick={handleRegion}>Asia</button>
+                <button onClick={handleRegion}>Oceania</button>
+                <button onClick={handleRegion}>Africa</button>
                 </ul>
             </div>
         </div>

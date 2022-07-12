@@ -7,7 +7,7 @@ const { randomPlaceComplete, chooseRegion, randomPlaceRegion, placesDetails} = r
 // router.get('/', home)
 router.get('/randomPlaceComplete', randomPlaceComplete)
 router.get('/chooseRegion', chooseRegion)
-router.get('/randomPlaceRegion', randomPlaceRegion)
+router.get('/randomPlaceRegion/:region', randomPlaceRegion)
 router.get('/places/:location', placesDetails)
 
 module.exports = router;
