@@ -16,7 +16,7 @@ const LocationDetails = () => {
         <div>
             <h1>Location details here</h1>
             <h2>Welcome to {location} ! </h2>
-            <button onClick={() => navigate("/")}>Go Back</button>
+            <button onClick={() => navigate(-1)}>Go Back</button>
         </div>
     )
 }

@@ -13,7 +13,8 @@ const RegionPage = () => {
         try {
             // Send the region that was chosen to backend
             const location = await axios.get(`${URL}/randomPlaceRegion/${state}`)
-            console.log("location successfully received: ", location)
+            console.log("location successfully received: ", location.data)
+            navigate(`/places/${location.data}`, {state : `${location.data}`})
             
         } catch (error) {
             
