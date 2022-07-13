@@ -69,14 +69,7 @@ const randomPlaceRegion = (req, res) => {
     res.send(randomLocation)
 }
 
-// Redirect after choosing a random location
-// app.get('/places/:location')
-const placesDetails = (req, res) => {
-    console.log("/places endpoint worked")
-    console.log(req.params.location)
-    //res.send("/places endpoint worked")
 
-}
 
 
 
@@ -84,5 +77,4 @@ module.exports = {
     randomPlaceComplete,
     chooseRegion,
     randomPlaceRegion,
-    placesDetails
 };
