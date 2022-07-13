@@ -7,7 +7,11 @@ import background from '../assets/Picture1.jpg'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import phila from '../assets/philaicon.jpeg'
-
+import southA from '../assets/southamericaicon.jpeg'
+import paris from '../assets/paris1.jpeg'
+import china from '../assets/chinatower.jpeg'
+import reef from '../assets/reef.jpeg'
+import giza from '../assets/giza.jpeg'
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -50,7 +54,7 @@ const HomePage = () => {
             <div className="bg">
                 <div className="container">
                     <div className="center">
-                        <h1>Planning your next trip?</h1>
+                        <h1 class="home">Planning your next trip?</h1>
                         <h2>Let us randomly pick for you</h2>
                     </div>
                     <div className="col text-center">
@@ -62,7 +66,7 @@ const HomePage = () => {
             
             <div className="container">
                 <div className="center">
-                    <h1>Random location by continent</h1>
+                    <h1 class="home">Random location by continent</h1>
                 </div>
                 
                 <Row xs='auto' md='auto' lg='auto' className="g-4">
@@ -81,7 +85,7 @@ const HomePage = () => {
                     </Col>
                     <Col>
                         <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" className="img-fluid" src={phila} width="auto" height="100%" />
+                            <Card.Img variant="top" className="img-fluid" src={southA} width="auto" height="100%" />
                             <Card.Body>
                                 <Card.Title>South America</Card.Title>
                                 <Card.Text>
@@ -94,7 +98,7 @@ const HomePage = () => {
                     </Col>
                     <Col>
                         <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" className="img-fluid" src={phila} width="auto" height="100%" />
+                            <Card.Img variant="top" className="img-fluid" src={paris} width="auto" height="100%" />
                             <Card.Body>
                                 <Card.Title>Europe</Card.Title>
                                 <Card.Text>
@@ -107,7 +111,7 @@ const HomePage = () => {
                     </Col>
                     <Col>
                         <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" className="img-fluid" src={phila} width="auto" height="100%" />
+                            <Card.Img variant="top" className="img-fluid" src={china} width="auto" height="100%" />
                             <Card.Body>
                                 <Card.Title>Asia</Card.Title>
                                 <Card.Text>
@@ -120,7 +124,7 @@ const HomePage = () => {
                     </Col>
                     <Col>
                         <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" className="img-fluid" src={phila} width="auto" height="100%" />
+                            <Card.Img variant="top" className="img-fluid" src={reef} width="auto" height="100%" />
                             <Card.Body>
                                 <Card.Title>Oceania</Card.Title>
                                 <Card.Text>
@@ -133,7 +137,7 @@ const HomePage = () => {
                     </Col>
                     <Col>
                         <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" className="img-fluid" src={phila} width="auto" height="100%" />
+                            <Card.Img variant="top" className="img-fluid" src={giza} width="auto" height="100%" />
                             <Card.Body>
                                 <Card.Title>Africa</Card.Title>
                                 <Card.Text>

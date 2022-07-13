@@ -41,7 +41,8 @@ body, html {
   height: 100%;
 }
 .bg {
-  background-image: url("./assets/pic1.jpg");
+  /* background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("./assets/sydney1.jpeg"); */
+  background-image: linear-gradient( #2046425a, rgba(0, 0, 0, 0.1)),url('./assets/pic1.jpg');
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,4 +54,10 @@ body, html {
 
 .center {
   text-align: center;
-  }
+
+}
+
+h1.home { 
+  font-family: 'Georgia';
+  color: white;
+}
