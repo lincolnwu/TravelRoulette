@@ -59,7 +59,7 @@ body, html {
   margin: 0 auto; /* Gives that scrolling effect as the typing happens */
   letter-spacing: .10em; /* Adjust as needed */
   animation: 
-    typing 2.40s steps(40, end),
+    typing 2.30s steps(40, end),
     blink-caret .75s step-end infinite;
   font-family: 'Georgia';
   color: white;
@@ -94,4 +94,15 @@ body, html {
   0% { opacity: 0; }
   50% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+.narrow {
+  font-family: sans-serif;
+  color: black;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+.location-welcome {
+  text-align: center;
 }

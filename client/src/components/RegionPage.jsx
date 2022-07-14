@@ -23,10 +23,13 @@ const RegionPage = () => {
 
     return (
         <div>
-            <h1>Region Infomation Here</h1>
-            <h2>Welcome to {state}</h2>
-            <button onClick={handleSubmit}> Find a destination in {state}!</button>
-            <button onClick={() => navigate("/")}>Go Back</button>
+            <div className="location-welcome">
+                <h1>Region Infomation Here</h1>
+                <h2>Welcome to {state}</h2>
+                <button onClick={handleSubmit}> Find a destination in {state}!</button>
+                <button onClick={() => navigate("/")}>Go Back</button>
+            </div>
+            
         </div>
     )
 }

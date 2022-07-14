@@ -3,7 +3,6 @@ import axios from 'axios'
 import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate, useHistory} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import background from '../assets/Picture1.jpg'
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import phila from '../assets/philaicon.jpeg'
@@ -66,8 +65,10 @@ const HomePage = () => {
             </div>
             
             <div className="container">
-        
-                <h1 class="home">Narrow your location by continent</h1>
+                <div className="narrow">
+                    <h1 class="home">Narrow your location by continent</h1>
+                </div>
+               
                 
                 
                 <Row xs='auto' md='auto' lg='auto' className="g-4">

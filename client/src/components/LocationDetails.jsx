@@ -13,6 +13,8 @@ const LocationDetails = () => {
     console.log(location)
 
     const URL = "http://localhost:5000"
+    // const GoogleImages = require('google-images');
+    // const client = new GoogleImages('15fc64be48a4499aa', 'API KEY');
     
     // Make call to backend
     const fetchDetails =  () => {
@@ -30,9 +32,13 @@ const LocationDetails = () => {
     
     return (
         <div>
-            <h1>Location details here</h1>
-            <h2>Welcome to {location} ! </h2>
-            <button onClick={() => navigate(-1)}>Go Back</button>
+            <div className="location-welcome">
+                <h1>Location details here</h1>
+                <h2>Welcome to {location} ! </h2>
+                <button onClick={() => navigate(-1)}>Go Back</button>
+            </div>
+            
+            
         </div>
     )
 }
