@@ -53,21 +53,22 @@ const HomePage = () => {
         <div >
             <div className="bg">
                 <div className="container">
-                    <div className="center">
-                        <h1 class="home">Planning your next trip?</h1>
-                        <h2>Let us randomly pick for you</h2>
+                    <div className="title">
+                        <h1>Planning your next trip?</h1>
+                    </div>
+                    <div className="welcome">
+                        <h2>Let us choose for you</h2>
                     </div>
                     <div className="col text-center">
                         <Button variant="primary" onClick={handleSubmit}>Generate a Random Location!</Button>
                     </div>
                 </div>
-
             </div>
             
             <div className="container">
-                <div className="center">
-                    <h1 class="home">Random location by continent</h1>
-                </div>
+        
+                <h1 class="home">Narrow your location by continent</h1>
+                
                 
                 <Row xs='auto' md='auto' lg='auto' className="g-4">
                     <Col>

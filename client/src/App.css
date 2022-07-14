@@ -52,12 +52,46 @@ body, html {
   align-items: center; 
 }
 
-.center {
-  text-align: center;
-
-}
-
-h1.home { 
+.title {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid rgb(255, 255, 255); /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .10em; /* Adjust as needed */
+  animation: 
+    typing 2.40s steps(40, end),
+    blink-caret .75s step-end infinite;
   font-family: 'Georgia';
   color: white;
+  max-width: fit-content;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.welcome {
+  animation: fadeInAnimation ease 3.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  
+  font-family: 'Georgia';
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 50% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: white; }
+}
+
+@keyframes fadeInAnimation {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
