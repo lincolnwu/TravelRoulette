@@ -111,9 +111,8 @@
         }
     },
     "Africa": {
-        "Egpyt": {
-            "Cairo, Egpyt": {},
-            "Luxor, Egpyt": {}
+        "Egypt": {
+            "Cairo, Egypt": {}
         },
         "South Africa": {
             "Cape Town, South Africa": {},

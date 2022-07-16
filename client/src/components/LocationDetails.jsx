@@ -7,6 +7,9 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Badge from 'react-bootstrap/Badge';
+
+
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -18,6 +21,7 @@ const LocationDetails = () => {
 
     const [photoLink, setPhotoLink] = useState('')
     const [loading, setLoading] = useState(false)
+    const [hotels, setHotels] = useState([])
 
     // Recieve state passed from navigate
     // Link: https://stackoverflow.com/questions/69714423/how-do-you-pass-data-when-using-the-navigate-function-in-react-router-v6
@@ -33,9 +37,11 @@ const LocationDetails = () => {
     const URL = "http://localhost:5000"
     // const GoogleImages = require('google-images');
     // const client = new GoogleImages('15fc64be48a4499aa', 'API KEY');
+
     
     // Make call to backend
     const fetchDetails = async () => {
+        // setLoading(true)
         try {
             // const photoBackground = axios.get(`${URL}/places/${state}`).then((res) => setPhotoLink(res.data.large2x)).catch((err) => console.log(err))
             const photoBackground = await axios.get(`${URL}/places/${state}`)
@@ -47,7 +53,9 @@ const LocationDetails = () => {
                     }
                     //console.log(result.data.length)
                     setPhotoLink(result.data[photoNumber].largeImageURL)
-                }).catch((err) => console.log(err))
+                    // setLoading(false)
+                })
+                .catch((err) => console.log(err))
             // const photoBackground = await axios.get(`${URL}/places/${state}`).then((result) => console.log(result)).catch((err) => console.log(err))
 
             //setPhotoLink(photoBackground)
@@ -55,33 +63,78 @@ const LocationDetails = () => {
 
         } catch (error) {
             console.log(error)
+        } finally {
+            // setLoading(false)
         }
     }
 
-    const fetchYelp = async () => {
+    const fetchGeoHotels = async () => {
+        //setLoading(true)
         try {
-            const yelpBusiness = await axios.get(`${URL}/yelp/${state}`)
+            const geoHotels = await axios.get(`${URL}/geo/${state}`)
                 .then(function (result) {
-                    console.log(result)
+                    console.log(result.data)
+                    console.log("before setState", hotels)
+                    setHotels(result.data)
+                    // console.log(hotels)
+                    console.log("after setState", hotels)
                 })
                 .catch((err) => {console.log(err)})
         } catch (error) {
             console.log(error)
-        }
+        } 
     }
 
     // Set empty dependency array 
     // So the effect will only run once the page loads
     useEffect(() => {
         setLoading(true)
+        console.log(loading)
         fetchDetails()
-        fetchYelp()
+        
+        console.log(loading)
+        // fetchYelp()
+        fetchGeoHotels().then(setLoading(false))
         window.scrollTo(0, 0)
-        setLoading(false)
+        // setLoading(false)
     }, [])
+
+    // Since setState is an async function, we need to use another useEffect to access the value
+    useEffect(() => {
+        console.log("after second useEffect photoLink", photoLink)
+        setLoading(false)
+    }, [photoLink])
+    
+    useEffect(() => {
+        console.log("after second useEffect", hotels)
+    }, [hotels])
+
+    useEffect(() => {
+        console.log("after second useEffect isLoading", loading)
+    }, [loading])
 
     let bgStyle = {
         backgroundImage: 'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),' + "url(" + photoLink + ")",
+    }
+    console.log("hotels?? ", hotels)
+    function displayHotels () {
+        console.log("displayhotels", hotels)
+        const hotelList = hotels.map((hotel) => (
+            <ListGroup.Item key={hotel.properties.name}
+            as="li"
+            className="d-flex justify-content-between align-items-start"
+             >
+            <div className="ms-2 me-auto">
+            <div className="fw-bold">{hotel.properties.name}</div>
+                {hotel.properties.housenumber} {hotel.properties.street}, {hotel.properties.city}, {hotel.properties.state} {hotel.properties.postcode}
+            </div>
+            <Badge bg="primary" pill>
+            More...
+            </Badge>
+        </ListGroup.Item>
+        ))
+        console.log(hotelList)
+        return hotelList
     }
     
     // useEffect(() => {
@@ -100,20 +153,23 @@ const LocationDetails = () => {
                 <div className="container">
                     
                     <div>
-                        {loading ? (
-                            <Spinner animation="border" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </Spinner>
-                        ) : (
-                             <div className="location-welcome">
+                        {/* {loading && (
+                            <div className="location-welcome">
+                                <Spinner animation="border" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </Spinner>
+                            </div>
+                        )}
+                        {!loading && (
+                            <div className="location-welcome">
                                 <h1>{city}</h1>
                                 <h2>{country}</h2>
                             </div>
-                        )}
-                        {/* <div className="location-welcome">
+                        )} */}
+                        <div className="location-welcome">
                             <h1>{city}</h1>
                             <h2>{country}</h2>
-                        </div> */}
+                        </div>
                         <div className="col text-center">
                             <Button variant="primary"  onClick={() => navigate(-1)}>Go Back</Button>
                         </div>
@@ -134,15 +190,14 @@ const LocationDetails = () => {
                         <div className="card-horizontal">
                             <Row>
                                 <Col>
-                                {/* <div class="img-square-wrapper"> */}
-                                    <img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img>
-                                {/* </div> */}
+                                    {/* <div class="img-square-wrapper"> */}
+                                        <img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img>
+                                    {/* </div> */}
                                 </Col>
                                 <Col>
-                                <div className="section">
-                                    <h3>Hi</h3>
-                                </div>
-                                
+                                    <div className="section">
+                                        <h3>Hi</h3>
+                                    </div>
                                 </Col>
                             </Row>
                         </div>
@@ -152,6 +207,27 @@ const LocationDetails = () => {
                     <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
                     <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
                 </ListGroup>
+            </Card>
+
+            <Card style={{ width: '36rem' }}>
+                {loading && (
+                    <div className="location-welcome">
+                        <Spinner animation="border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                )}
+                
+                <Card.Header>Popular Hotels</Card.Header>
+                {/* <ListGroup as="ol" numbered>
+                    {displayHotels()}
+                </ListGroup> */}
+
+                {!loading && (
+                    <ListGroup as="ol" numbered>
+                        {displayHotels()}
+                    </ListGroup>
+                )}
             </Card>
             </div>
         </div>
