@@ -11,10 +11,13 @@ import paris from '../assets/paris1.jpeg'
 import china from '../assets/chinatower.jpeg'
 import reef from '../assets/reef.jpeg'
 import giza from '../assets/giza.jpeg'
+import NA from '../assets/NorthAmerica.jpeg'
 
 const HomePage = () => {
     const navigate = useNavigate();
     const URL = "http://localhost:5000"
+
+    const [photoLink, setPhotoLink] = useState('')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,27 +25,45 @@ const HomePage = () => {
         try {
             // Send get request to backend to generate random location
             let location = await axios.get(`${URL}/randomPlaceComplete`)
-            console.log(location)
+            console.log("random location received from server: ", location)
 
+            //let photoBackground = axios.get(`${URL}/places/${location.data}`).then((res) => setPhotoLink(res.data.large2x)).catch((err) => console.log(err))
+            //console.log(photoBackground)
+            //console.log(photoLink)
             //await axios.get(`/places?location=${location.data}`)
             //await axios.get(`${URL}/places/${location.data}`)
 
             // Navigate to a new page, and pass in a prop to hold the location data
+            // navigate(`/places/${location.data}`, {state : `${location.data}`, photo : `${photoLink}`})
+            console.log("sending location to next page ... ")
             navigate(`/places/${location.data}`, {state : `${location.data}`})
+            
 
         } catch (error) {
             console.log(error)
         }
     }
 
+    // const bgDict = {
+    //     "North America": NA
+    // }
+
     const handleRegion = (e) => {
 
         e.preventDefault();
+        // console.log(NA)
         
         try {
             const region = e.target.id
+            
+            // if (region === "North America") {
+            //     let bgSrc = NA
+            // }
+
             console.log(region)
+            //navigate(`/region/${region}`, { state : {region: `${region}`, img: bgDict[region]}})
             navigate(`/region/${region}`, { state : `${region}`})
+
         } catch (error) {
             console.log(error)
         }
@@ -66,7 +87,7 @@ const HomePage = () => {
             
             <div className="container">
                 <div className="narrow">
-                    <h1 class="home">Narrow your location by continent</h1>
+                    <h1 className="home">Narrow your location by continent</h1>
                 </div>
                
                 

@@ -24,8 +24,8 @@
     },
     "South America": {
         "Argentina":{
-            "Buenos Aires, Argentia": {},
-            "Cordoba, Argentia": {},
+            "Buenos Aires, Argentina": {},
+            "Cordoba, Argentina": {},
             "Rosario, Argentina": {}
         },
         "Brazil": {
@@ -36,7 +36,7 @@
         "Chile": {
             "Santiago, Chile": {},
             "Valparaiso, Chile": {},
-            "Puerto Natales": {}
+            "Puerto Natales, Chile": {}
         },
         "Peru": {
             "Machu Picchu, Peru": {},
@@ -44,7 +44,7 @@
         },
         "Colombia": {
             "Cartagena, Colombia": {},
-            "Bogota, Peru": {}
+            "Bogota, Colombia": {}
         },
         "Ecuador": {
             "Quito, Ecuador": {},
@@ -104,15 +104,11 @@
         "Australia": {
             "Sydney, Australia": {},
             "Melbourne, Australia": {},
-            "Brisbane, Austrlia": {}
+            "Brisbane, Australia": {}
         },
         "New Zealand": {
             "Auckland, New Zealand": {},
             "Queenstown, New Zealand": {}
-        },
-        "Fiji": {
-            "Suva, Fiji": {},
-            "Nadi, Fiji": {}
         }
     },
     "Africa": {
@@ -148,8 +144,7 @@
             "Abuja, Nigeria": {}
         },
         "Ghana": {
-            "Accra, Ghana": {},
-            "Kumasi, Ghana": {}
+            "Accra, Ghana": {}
         },
         "Kenya": {
             "Nairobi, Kenya": {}
@@ -194,7 +189,7 @@
         "Portugal": {
             "Lisbon, Portugal": {},
             "Porto, Portugual": {},
-            "Madeira, Portugual": {}
+            "Madeira, Portugal": {}
         },
         "Greece": {
             "Athens, Greece": {},
