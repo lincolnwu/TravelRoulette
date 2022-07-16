@@ -9,6 +9,7 @@ import OC from '../assets/Oceania.jpeg'
 import AF from '../assets/Africa.jpeg'
 import Button from 'react-bootstrap/Button';
 
+
 const RegionPage = () => {
     const navigate = useNavigate()
     const { state } = useLocation()

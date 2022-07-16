@@ -3,6 +3,10 @@ import axios from 'axios'
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -54,11 +58,24 @@ const LocationDetails = () => {
         }
     }
 
+    const fetchYelp = async () => {
+        try {
+            const yelpBusiness = await axios.get(`${URL}/yelp/${state}`)
+                .then(function (result) {
+                    console.log(result)
+                })
+                .catch((err) => {console.log(err)})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     // Set empty dependency array 
     // So the effect will only run once the page loads
     useEffect(() => {
         setLoading(true)
         fetchDetails()
+        fetchYelp()
         window.scrollTo(0, 0)
         setLoading(false)
     }, [])
@@ -76,9 +93,6 @@ const LocationDetails = () => {
         
     // }, [])
 
-    
-    
-    
     
     return (
         <div>
@@ -106,6 +120,39 @@ const LocationDetails = () => {
                     </div>
                 </div>
                 {/* <img src={photoLink}></img> */}
+            </div>
+            <div className="container">
+            
+            <div className="narrow">
+                <h1 className="home">About {location}</h1>
+            </div>
+
+            <Card style={{ width: '36rem' }}>
+                <Card.Header>Restaurants Nearby</Card.Header>
+                <ListGroup variant="flush">
+                    <ListGroup.Item style={{padding: 0}}>
+                        <div className="card-horizontal">
+                            <Row>
+                                <Col>
+                                {/* <div class="img-square-wrapper"> */}
+                                    <img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img>
+                                {/* </div> */}
+                                </Col>
+                                <Col>
+                                <div className="section">
+                                    <h3>Hi</h3>
+                                </div>
+                                
+                                </Col>
+                            </Row>
+                        </div>
+                    </ListGroup.Item>
+                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                </ListGroup>
+            </Card>
             </div>
         </div>
     )

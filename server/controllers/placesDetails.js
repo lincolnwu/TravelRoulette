@@ -3,15 +3,13 @@
 const axios = require('axios')
 
 require('dotenv').config();
-const API_KEY = process.env.PEXELS_API_KEY
+const YELP_KEY = process.env.YELP_API_KEY
 const PIXABAY_KEY = process.env.PIXABAY_API_KEY
 
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
-
-
 
 const placesDetails = async (req, res) => {
     console.log("/places endpoint worked", req.params.location)
@@ -33,6 +31,28 @@ const placesDetails = async (req, res) => {
 
 }
 
+const yelpDetails = async (req, res) => {
+    console.log("yelp got the location:", req.params.location)
+    const config = {
+        headers: {
+            Authorization: `Bearer ${YELP_KEY}`
+        },
+        params: {
+            term: 'restaurant',
+            location: req.params.location,
+            radius: 40000,
+            limit: 1,
+            sort_by: 'rating'
+        }
+    }
+
+    const YELP_URL = "https://api.yelp.com/v3/businesses/search"
+    axios.get(YELP_URL, config)
+        .then(res => console.log(res.data.businesses))
+        .catch(err => console.log(err))
+}
+
 module.exports = {
-    placesDetails
+    placesDetails,
+    yelpDetails
 }

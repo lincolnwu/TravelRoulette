@@ -47,8 +47,7 @@
             "Bogota, Colombia": {}
         },
         "Ecuador": {
-            "Quito, Ecuador": {},
-            "Cuenca, Ecuador": {}
+            "Quito, Ecuador": {}
         },
         "Bolivia": {
             "La Paz, Bolivia": {},
@@ -135,9 +134,6 @@
         "Mauritius": {
             "Port Louis, Mauritius": {},
             "Grand Baie, Mauritius": {}
-        },
-        "Uganda": {
-            "Kampala, Uganda": {}
         },
         "Nigeria": {
             "Lagos, Nigeria": {},
