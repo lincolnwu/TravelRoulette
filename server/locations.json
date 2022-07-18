@@ -25,8 +25,7 @@
     "South America": {
         "Argentina":{
             "Buenos Aires, Argentina": {},
-            "Cordoba, Argentina": {},
-            "Rosario, Argentina": {}
+            "Cordoba, Argentina": {}
         },
         "Brazil": {
             "Sao Paulo, Brazil": {},
@@ -127,12 +126,10 @@
             "Unguja, Tanzania": {}
         },
         "Tunisia": {
-            "Tunis, Tunisia": {},
-            "Djerba, Tunisia": {}
+            "Tunis, Tunisia": {}
         },
         "Mauritius": {
-            "Port Louis, Mauritius": {},
-            "Grand Baie, Mauritius": {}
+            "Port Louis, Mauritius": {}
         },
         "Nigeria": {
             "Lagos, Nigeria": {},

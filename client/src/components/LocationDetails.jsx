@@ -39,7 +39,7 @@ const LocationDetails = () => {
     // const client = new GoogleImages('15fc64be48a4499aa', 'API KEY');
 
     
-    // Make call to backend
+    // Make call to backend for photo background
     const fetchDetails = async () => {
         // setLoading(true)
         try {
@@ -72,9 +72,12 @@ const LocationDetails = () => {
 
         // Make sure the hotel has a website
         const checkHotel = (hotel) => {
-            let houseNumber = "housenumber" in hotel.properties
+            // let houseNumber = "housenumber" in hotel.properties
+            // let street = "street" in hotel.properties
             let website = "website" in hotel.properties.datasource.raw
-            return houseNumber && website
+            // console.log(houseNumber || street)
+            //console.log(houseNumber && website)
+            return website
         }
 
         try {
@@ -82,10 +85,12 @@ const LocationDetails = () => {
             const geoHotels = await axios.get(`${URL}/geo/${state}`)
                 .then(function (result) {
                     console.log(result.data)
-                    console.log("before setState", hotels)
+                    //console.log("before setState", hotels)
 
                     // Filter out hotels with a website
                     const filteredHotels = result.data.filter(checkHotel)
+                    const uniqueFilteredHotels = [... new Set(filteredHotels)]
+                    console.log("filtered hotels", uniqueFilteredHotels)
                     setHotels(filteredHotels)
                     console.log(hotels)
                     console.log("after setState", hotels)
@@ -97,6 +102,28 @@ const LocationDetails = () => {
         } 
     }
 
+    const fetchTouristSpots = async () => {
+
+        const checkTourist = (spot) => {
+            let wikiImg = "wikipedia" in spot.properties.datasource.raw
+            return wikiImg
+        }
+
+        try {
+            const geoTourist = await axios.get(`${URL}/tourist/${state}`)
+                .then(function (result) {
+                    console.log("regular tourists", result.data)
+                    
+                    const filteredTourist = result.data.filter(checkTourist)
+                    console.log("filtered tourists", filteredTourist)
+                })
+                .catch((err) => console.log(err))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     // Set empty dependency array 
     // So the effect will only run once the page loads
     useEffect(() => {
@@ -107,6 +134,8 @@ const LocationDetails = () => {
         console.log(loading)
         // fetchYelp()
         fetchGeoHotels()
+
+        fetchTouristSpots()
         window.scrollTo(0, 0)
         // setLoading(false)
     }, [])
@@ -139,7 +168,8 @@ const LocationDetails = () => {
              >
             <div className="ms-2 me-auto">
             <div className="fw-bold">{hotel.properties.name}</div>
-                {hotel.properties.housenumber} {hotel.properties.street}, {hotel.properties.city}, {hotel.properties.state} {hotel.properties.postcode}
+                {hotel.properties.address_line2}
+                {/* {hotel.properties.housenumber} {hotel.properties.street}, {hotel.properties.city}, {hotel.properties.state} {hotel.properties.postcode} */}
             </div>
             <a href={hotel.properties.datasource.raw.website}>
                 <Badge bg="primary" pill>
@@ -196,50 +226,53 @@ const LocationDetails = () => {
             <div className="container">
             
             <div className="narrow">
-                <h1 className="home">About {location}</h1>
+                <h1 className="home" style={{fontFamily: "Georgia"}}>About {location}</h1>
             </div>
-            <Card style={{ width: '36rem' }}>
 
-                <Card.Header>Popular Hotels</Card.Header>
+            <div className="horiz-div">
+                <Card style={{ width: '36rem' }}>
 
-                {!loading ? (
-                    <ListGroup as="ol" numbered>
-                        {displayHotels()}
-                    </ListGroup>
-                ) : (
-                    <div className="center-spinner">
-                        <Spinner animation="border" role="status" border="primary">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                    </div>
-                )}
-            </Card>
+                    <Card.Header>Popular Hotels</Card.Header>
 
-            <Card style={{ width: '36rem' }}>
-                <Card.Header>Restaurants Nearby</Card.Header>
-                <ListGroup variant="flush">
-                    <ListGroup.Item style={{padding: 0}}>
-                        <div className="card-horizontal">
-                            <Row>
-                                <Col>
-                                    {/* <div class="img-square-wrapper"> */}
-                                        <img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img>
-                                    {/* </div> */}
-                                </Col>
-                                <Col>
-                                    <div className="section">
-                                        <h3>Hi</h3>
-                                    </div>
-                                </Col>
-                            </Row>
+                    {!loading ? (
+                        <ListGroup as="ol" numbered>
+                            {displayHotels()}
+                        </ListGroup>
+                    ) : (
+                        <div className="center-spinner">
+                            <Spinner animation="border" role="status" border="primary">
+                                <span className="visually-hidden">Loading...</span>
+                            </Spinner>
                         </div>
-                    </ListGroup.Item>
-                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                </ListGroup>
-            </Card>
+                    )}
+                </Card>
+
+                <Card style={{ width: '36rem' }}>
+                    <Card.Header>Tourist Attractions</Card.Header>
+                    <ListGroup variant="flush">
+                        <ListGroup.Item style={{padding: 0}}>
+                            <div className="card-horizontal">
+                                <Row>
+                                    <Col>
+                                        {/* <div class="img-square-wrapper"> */}
+                                            <img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img>
+                                        {/* </div> */}
+                                    </Col>
+                                    <Col>
+                                        <div className="section">
+                                            <h3>Hi</h3>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                        </ListGroup.Item>
+                        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
+                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                    </ListGroup>
+                </Card>
+            </div>
 
             
             </div>

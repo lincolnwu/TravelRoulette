@@ -70,14 +70,39 @@ const geoDetails = async (req, res) => {
         await axios.get(`https://api.geoapify.com/v2/places?categories=accommodation.hotel&filter=place:${placeID}&limit=400&apiKey=${GEO_KEY}`)
         .then(function (response) {
             res.send(response.data.features)
-            //console.log(response.data.features)
+            console.log(response.data.features)
         })
     })
     .catch(err => console.log(err))
 
 }
 
+const geoTourist = async (req, res) => {
+    console.log("location for tourist attractions: ", req.params.location)
+    const queryLocation = req.params.location
+    const getID = `https://api.geoapify.com/v1/geocode/search?text=${queryLocation}&format=json&apiKey=${GEO_KEY}`
+    await axios.get(getID)
+    .then(function (response) {
+        placeID = response.data.results[0].place_id
+        console.log("tourist ID received: ", placeID)
+        //console.log(response.data.results[0].place_id)
+        // Return data from this axios call
+        return placeID
+    })
+    .then(async (placeID) => {
+        const ENDPOINT4 =  `https://api.geoapify.com/v2/places?categories=tourism&filter=place:${placeID}&limit=400&apiKey=${GEO_KEY}`
+        await axios.get(ENDPOINT4)
+        .then(function (response) {
+            res.send(response.data.features)
+            console.log("did tourism work?", response.data.features)
+            console.log("tourism worked ")
+        })
+    })
+    
+}
+
 module.exports = {
     placesDetails,
-    geoDetails
+    geoDetails,
+    geoTourist
 }

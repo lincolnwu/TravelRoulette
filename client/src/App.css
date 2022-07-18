@@ -158,3 +158,10 @@ body, html {
   align-items: center; 
   margin-top: 10px;
 }
+
+.horiz-div {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
