@@ -70,7 +70,7 @@ const geoDetails = async (req, res) => {
         await axios.get(`https://api.geoapify.com/v2/places?categories=accommodation.hotel&filter=place:${placeID}&limit=5&apiKey=${GEO_KEY}`)
         .then(function (response) {
             res.send(response.data.features)
-            console.log(response.data.features)
+            //console.log(response.data.features)
         })
     })
     .catch(err => console.log(err))

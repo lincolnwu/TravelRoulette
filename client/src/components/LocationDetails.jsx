@@ -20,7 +20,7 @@ const LocationDetails = () => {
     const navigate = useNavigate();
 
     const [photoLink, setPhotoLink] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [hotels, setHotels] = useState([])
 
     // Recieve state passed from navigate
@@ -69,8 +69,8 @@ const LocationDetails = () => {
     }
 
     const fetchGeoHotels = async () => {
-        //setLoading(true)
         try {
+            setLoading(true)
             const geoHotels = await axios.get(`${URL}/geo/${state}`)
                 .then(function (result) {
                     console.log(result.data)
@@ -78,6 +78,7 @@ const LocationDetails = () => {
                     setHotels(result.data)
                     // console.log(hotels)
                     console.log("after setState", hotels)
+                    setLoading(false) // Set loading bar to false
                 })
                 .catch((err) => {console.log(err)})
         } catch (error) {
@@ -88,13 +89,13 @@ const LocationDetails = () => {
     // Set empty dependency array 
     // So the effect will only run once the page loads
     useEffect(() => {
-        setLoading(true)
+        //setLoading(true)
         console.log(loading)
         fetchDetails()
         
         console.log(loading)
         // fetchYelp()
-        fetchGeoHotels().then(setLoading(false))
+        fetchGeoHotels()
         window.scrollTo(0, 0)
         // setLoading(false)
     }, [])
@@ -102,7 +103,7 @@ const LocationDetails = () => {
     // Since setState is an async function, we need to use another useEffect to access the value
     useEffect(() => {
         console.log("after second useEffect photoLink", photoLink)
-        setLoading(false)
+        //setLoading(false)
     }, [photoLink])
     
     useEffect(() => {
@@ -119,6 +120,7 @@ const LocationDetails = () => {
     console.log("hotels?? ", hotels)
     function displayHotels () {
         console.log("displayhotels", hotels)
+        console.log(hotels[0].properties.datasource)
         const hotelList = hotels.map((hotel) => (
             <ListGroup.Item key={hotel.properties.name}
             as="li"
@@ -128,9 +130,13 @@ const LocationDetails = () => {
             <div className="fw-bold">{hotel.properties.name}</div>
                 {hotel.properties.housenumber} {hotel.properties.street}, {hotel.properties.city}, {hotel.properties.state} {hotel.properties.postcode}
             </div>
-            <Badge bg="primary" pill>
-            More...
-            </Badge>
+            <a href={hotel.properties.datasource.raw.website}>
+                CLICK ME!
+                {/* <Badge bg="primary" pill>
+                    More...
+                </Badge> */}
+            </a>
+            
         </ListGroup.Item>
         ))
         console.log(hotelList)
@@ -182,6 +188,22 @@ const LocationDetails = () => {
             <div className="narrow">
                 <h1 className="home">About {location}</h1>
             </div>
+            <Card style={{ width: '36rem' }}>
+
+                <Card.Header>Popular Hotels</Card.Header>
+
+                {!loading ? (
+                    <ListGroup as="ol" numbered>
+                        {displayHotels()}
+                    </ListGroup>
+                ) : (
+                    <div className="center-spinner">
+                        <Spinner animation="border" role="status" border="primary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                )}
+            </Card>
 
             <Card style={{ width: '36rem' }}>
                 <Card.Header>Restaurants Nearby</Card.Header>
@@ -209,26 +231,7 @@ const LocationDetails = () => {
                 </ListGroup>
             </Card>
 
-            <Card style={{ width: '36rem' }}>
-                {loading && (
-                    <div className="location-welcome">
-                        <Spinner animation="border" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </Spinner>
-                    </div>
-                )}
-                
-                <Card.Header>Popular Hotels</Card.Header>
-                {/* <ListGroup as="ol" numbered>
-                    {displayHotels()}
-                </ListGroup> */}
-
-                {!loading && (
-                    <ListGroup as="ol" numbered>
-                        {displayHotels()}
-                    </ListGroup>
-                )}
-            </Card>
+            
             </div>
         </div>
     )
