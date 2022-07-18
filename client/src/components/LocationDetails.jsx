@@ -69,14 +69,25 @@ const LocationDetails = () => {
     }
 
     const fetchGeoHotels = async () => {
+
+        // Make sure the hotel has a website
+        const checkHotel = (hotel) => {
+            let houseNumber = "housenumber" in hotel.properties
+            let website = "website" in hotel.properties.datasource.raw
+            return houseNumber && website
+        }
+
         try {
             setLoading(true)
             const geoHotels = await axios.get(`${URL}/geo/${state}`)
                 .then(function (result) {
                     console.log(result.data)
                     console.log("before setState", hotels)
-                    setHotels(result.data)
-                    // console.log(hotels)
+
+                    // Filter out hotels with a website
+                    const filteredHotels = result.data.filter(checkHotel)
+                    setHotels(filteredHotels)
+                    console.log(hotels)
                     console.log("after setState", hotels)
                     setLoading(false) // Set loading bar to false
                 })
@@ -121,7 +132,7 @@ const LocationDetails = () => {
     function displayHotels () {
         console.log("displayhotels", hotels)
         console.log(hotels[0].properties.datasource)
-        const hotelList = hotels.map((hotel) => (
+        const hotelList = hotels.slice(0, 5).map((hotel) => (
             <ListGroup.Item key={hotel.properties.name}
             as="li"
             className="d-flex justify-content-between align-items-start"
@@ -131,10 +142,9 @@ const LocationDetails = () => {
                 {hotel.properties.housenumber} {hotel.properties.street}, {hotel.properties.city}, {hotel.properties.state} {hotel.properties.postcode}
             </div>
             <a href={hotel.properties.datasource.raw.website}>
-                CLICK ME!
-                {/* <Badge bg="primary" pill>
+                <Badge bg="primary" pill>
                     More...
-                </Badge> */}
+                </Badge>
             </a>
             
         </ListGroup.Item>
