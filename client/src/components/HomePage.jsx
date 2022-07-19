@@ -26,7 +26,7 @@ const HomePage = () => {
         try {
             // Send get request to backend to generate random location
             let location = await axios.get(`${URL}/randomPlaceComplete`)
-            console.log("random location received from server: ", location)
+            //console.log("random location received from server: ", location)
 
             //let photoBackground = axios.get(`${URL}/places/${location.data}`).then((res) => setPhotoLink(res.data.large2x)).catch((err) => console.log(err))
             //console.log(photoBackground)
@@ -36,7 +36,7 @@ const HomePage = () => {
 
             // Navigate to a new page, and pass in a prop to hold the location data
             // navigate(`/places/${location.data}`, {state : `${location.data}`, photo : `${photoLink}`})
-            console.log("sending location to next page ... ")
+            //console.log("sending location to next page ... ")
             navigate(`/places/${location.data}`, {state : `${location.data}`})
             
 
@@ -61,7 +61,7 @@ const HomePage = () => {
             //     let bgSrc = NA
             // }
 
-            console.log(region)
+            //console.log(region)
             //navigate(`/region/${region}`, { state : {region: `${region}`, img: bgDict[region]}})
             navigate(`/region/${region}`, { state : `${region}`})
 

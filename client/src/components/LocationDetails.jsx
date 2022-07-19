@@ -23,7 +23,6 @@ const LocationDetails = () => {
     const [loading, setLoading] = useState(true)
     const [hotels, setHotels] = useState([])
     const [attractions, setAttractions] = useState([])
-    const [useImg, setUseImg] = useState(true)
     const [imageLinks, setImageLinks] = useState([])
     const [touristLoading, setTouristLoading] = useState(true)
     const [description, setDescription] = useState("")
@@ -40,9 +39,6 @@ const LocationDetails = () => {
     let country = locationSplit[1]
 
     const URL = "http://localhost:5000"
-    // const GoogleImages = require('google-images');
-    // const client = new GoogleImages('15fc64be48a4499aa', 'API KEY');
-
     
     // Make call to backend for photo background
     const fetchDetails = async () => {
@@ -89,7 +85,7 @@ const LocationDetails = () => {
             setLoading(true)
             const geoHotels = await axios.get(`${URL}/geo/${state}`)
                 .then(function (result) {
-                    console.log(result.data)
+                    //console.log(result.data)
                     //console.log("before setState", hotels)
 
                     // Filter out hotels with a website
@@ -124,7 +120,7 @@ const LocationDetails = () => {
             setTouristLoading(true)
             const geoTourist = await axios.get(`${URL}/tourist/${state}`)
                 .then(function (result) {
-                    console.log("regular tourists", result.data)
+                    //console.log("regular tourists", result.data)
                     const tourist = result.data.filter(regularCheckTourist)
                     // For wikipedia images
                     //const filteredTourist = result.data.filter(checkTourist)
@@ -139,10 +135,10 @@ const LocationDetails = () => {
                     
                     setAttractions(tourist) 
 
-                    console.log("regular tourists", result.data)
+                    //console.log("regular tourists", result.data)
                     // console.log("filtered tourists", filteredTourist)
 
-                    console.log("attractions", attractions)
+                    //console.log("attractions", attractions)
                     setTouristLoading(false)
                 })
                 .catch((err) => console.log(err))
@@ -185,7 +181,6 @@ const LocationDetails = () => {
     }, [loading])
 
     useEffect(() => {
-
     }, [touristLoading])
 
     let bgStyle = {
@@ -220,29 +215,29 @@ const LocationDetails = () => {
 
     const displayImgAttractions =  () => {
 
-        const getImgLink = async (attraction) => {
-            try {
-                //await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${attraction.properties.datasource.raw.wikipedia}`)
-                //await axios.get(`${URL}/wikiImg/`)
-               const imgURL = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${attraction}`)
-               console.log(imgURL.data.query.pages[0].original.source)
-               setImageLinks([...imageLinks, imgURL.data.query.pages[0].original.source])
-               return imgURL.data.query.pages[0].original.source
-                // .then(function (response) {
-                //     //console.log(response.data.query.pages[0].original)
-                //     //const wikiImg = response.data.query.pages[0].original
-                //     //console.log("wiki image: ", wikiImg.source)
+        // const getImgLink = async (attraction) => {
+        //     try {
+        //         //await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${attraction.properties.datasource.raw.wikipedia}`)
+        //         //await axios.get(`${URL}/wikiImg/`)
+        //        const imgURL = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${attraction}`)
+        //        //console.log(imgURL.data.query.pages[0].original.source)
+        //        setImageLinks([...imageLinks, imgURL.data.query.pages[0].original.source])
+        //        return imgURL.data.query.pages[0].original.source
+        //         // .then(function (response) {
+        //         //     //console.log(response.data.query.pages[0].original)
+        //         //     //const wikiImg = response.data.query.pages[0].original
+        //         //     //console.log("wiki image: ", wikiImg.source)
                     
-                //     return response.data.query.pages[0].original
+        //         //     return response.data.query.pages[0].original
                     
-                //     //setImageLinks([...imageLinks, wikiImg])
+        //         //     //setImageLinks([...imageLinks, wikiImg])
                     
-                // })
-                //.catch (err => console.log(err))
-            } catch (error) {
-                console.log(error)
-            }
-        }
+        //         // })
+        //         //.catch (err => console.log(err))
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+        // }
         //console.log("img att function", attractions)
        //console.log("IMAGE LINKS", imageLinks[0])
         

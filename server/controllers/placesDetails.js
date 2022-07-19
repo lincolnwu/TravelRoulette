@@ -13,10 +13,10 @@ function getRandomInt(max) {
   }
 
 const placesDetails = async (req, res) => {
-    console.log("/places endpoint worked", req.params.location)
+    //console.log("/places endpoint worked", req.params.location)
     //console.log(req.params.location)
     const queryLocation = req.params.location
-    console.log("Query:", queryLocation)
+    //console.log("Query:", queryLocation)
 
     const ENDPOINT2 = `https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${queryLocation}&orientation=horizontal&min_width=1920&min_height=1080&image_type=photo`
     await axios.get(ENDPOINT2)
@@ -54,19 +54,19 @@ const placesDetails = async (req, res) => {
 // }
 
 const geoDetails = async (req, res) => {
-    console.log("location for geoapi: ", req.params.location)
+    //console.log("location for geoapi: ", req.params.location)
     const queryLocation = req.params.location
     const ENDPOINT3 = `https://api.geoapify.com/v1/geocode/search?text=${queryLocation}&format=json&apiKey=${GEO_KEY}`
     await axios.get(ENDPOINT3)
     .then(function (response) {
         placeID = response.data.results[0].place_id
-        console.log("received: ", placeID)
+        //console.log("received: ", placeID)
         //console.log(response.data.results[0].place_id)
         // Return data from this axios call
         return placeID
     })
     .then(async (placeID) => {
-        console.log("second one got: ", placeID)
+        //console.log("second one got: ", placeID)
         await axios.get(`https://api.geoapify.com/v2/places?categories=accommodation.hotel&filter=place:${placeID}&limit=400&apiKey=${GEO_KEY}`)
         .then(function (response) {
             res.send(response.data.features)
@@ -78,13 +78,13 @@ const geoDetails = async (req, res) => {
 }
 
 const geoTourist = async (req, res) => {
-    console.log("location for tourist attractions: ", req.params.location)
+    //console.log("location for tourist attractions: ", req.params.location)
     const queryLocation = req.params.location
     const getID = `https://api.geoapify.com/v1/geocode/search?text=${queryLocation}&format=json&apiKey=${GEO_KEY}`
     await axios.get(getID)
     .then(function (response) {
         placeID = response.data.results[0].place_id
-        console.log("tourist ID received: ", placeID)
+        //console.log("tourist ID received: ", placeID)
         //console.log(response.data.results[0].place_id)
         // Return data from this axios call
         return placeID
@@ -95,19 +95,19 @@ const geoTourist = async (req, res) => {
         .then(function (response) {
             res.send(response.data.features)
             //console.log("did tourism work?", response.data.features)
-            console.log("tourism worked ")
+            //console.log("tourism worked ")
         })
     })
     
 }
 
 const getWikiImg = async (req, res) => {
-    console.log("wiki data for img", req.params.location)
+    //console.log("wiki data for img", req.params.location)
     const queryLocation = req.params.location
     const ENDPOINT5 = `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${queryLocation}`
     await axios.get(ENDPOINT5)
         .then(function (response) {
-            console.log(response)
+            //console.log(response)
         })
 }
 
@@ -117,16 +117,16 @@ const getWikiSummary = (req, res) => {
     const ENDPOINT6 = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&indexpageids&explaintext&redirects=1&titles=${urlEncoded}`
     axios.get(ENDPOINT6)
     .then(function (response) {
-        console.log(response.data.query)
+        //console.log(response.data.query)
         const pageID = response.data.query.pageids[0]
-        console.log(pageID)
+        //console.log(pageID)
         let raw = response.data.query.pages[pageID].extract
         if (raw) {
             let text = response.data.query.pages[pageID].extract.split("\n")
             if (text.length >= 1) {
-                let final = text[0].split(".")
+                let final = text[0].split(/\.(?!\s)/g)
                 //console.log(final.slice(0, 5).join("."))
-                res.send(final.slice(0, 5).join(".") + ".")
+                res.send(final.slice(0, 5).join("."))
             }
             else {
                 res.send(response.data.query.pages[pageID].extract)
