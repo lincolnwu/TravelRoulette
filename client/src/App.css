@@ -100,7 +100,10 @@ body, html {
   font-family: sans-serif;
   color: black;
   margin-top: 50px;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
 
 .location-welcome {
@@ -164,8 +167,37 @@ body, html {
   flex-direction: row;
   /* align-items: center; */
   /* justify-content: center; */
+  margin-bottom: 20px;
 }
 
 .spaced-apart {
   margin-right: 100px;
+}
+
+.homepage-container-bottom {
+  display:flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.description {
+  display:flex;
+  justify-content: center;
+  align-items: center; 
+  margin-bottom: 50px;
+}
+
+.description-text {
+  font-size: 18px;
+  color: black;
+  font-family: 'Work Sans', sans-serif;
+  
+}
+
+.hotel-header-color {
+  background-color: rgb(174, 228, 240) !important;
+}
+
+.things-to-do-color {
+  background-color: rgb(174, 228, 240) !important;
 }

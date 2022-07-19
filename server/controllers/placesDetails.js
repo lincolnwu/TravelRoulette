@@ -111,8 +111,32 @@ const getWikiImg = async (req, res) => {
         })
 }
 
-const getWikiSummary = async (req, res) => {
-
+const getWikiSummary = (req, res) => {
+    const queryLocation = req.params.location
+    const urlEncoded = encodeURI(queryLocation)
+    const ENDPOINT6 = `https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&indexpageids&explaintext&redirects=1&titles=${urlEncoded}`
+    axios.get(ENDPOINT6)
+    .then(function (response) {
+        console.log(response.data.query)
+        const pageID = response.data.query.pageids[0]
+        console.log(pageID)
+        let raw = response.data.query.pages[pageID].extract
+        if (raw) {
+            let text = response.data.query.pages[pageID].extract.split("\n")
+            if (text.length >= 1) {
+                let final = text[0].split(".")
+                //console.log(final.slice(0, 5).join("."))
+                res.send(final.slice(0, 5).join(".") + ".")
+            }
+            else {
+                res.send(response.data.query.pages[pageID].extract)
+            }
+        } else {
+            res.send("")
+        }
+        //console.log(response.data.query.pages[pageID].extract)
+        //res.send(response.data.query.pages[pageID].extract)
+    })
 }
 
 module.exports = {

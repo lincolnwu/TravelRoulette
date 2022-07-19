@@ -12,6 +12,7 @@ import china from '../assets/chinatower.jpeg'
 import reef from '../assets/reef.jpeg'
 import giza from '../assets/giza.jpeg'
 import NA from '../assets/NorthAmerica.jpeg'
+import Container from 'react-bootstrap/Container'
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -85,13 +86,13 @@ const HomePage = () => {
                 </div>
             </div>
             
-            <div className="container">
-                <div className="narrow">
+            {/* <div className="container"> */}
+            <div className="narrow">
                     <h1 className="home">Narrow your location by continent</h1>
                 </div>
+            <Container className="homepage-container-bottom">
+                
                
-                
-                
                 <Row xs='auto' md='auto' lg='auto' className="g-4">
                     <Col>
                         <Card style={{ width: '18rem' }}>
@@ -99,8 +100,7 @@ const HomePage = () => {
                             <Card.Body>
                                 <Card.Title>North America</Card.Title>
                                 <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
+                                North America is the third largest continent in size and is home to 23 countries.
                                 </Card.Text>
                                 <Button id="North America" onClick={handleRegion} variant="primary">Visit</Button>
                             </Card.Body>
@@ -112,8 +112,7 @@ const HomePage = () => {
                             <Card.Body>
                                 <Card.Title>South America</Card.Title>
                                 <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
+                                South America is home to the largest river as well as the world's driest place. 
                                 </Card.Text>
                                 <Button id="South America" onClick={handleRegion} variant="primary">Visit</Button>
                             </Card.Body>
@@ -125,8 +124,7 @@ const HomePage = () => {
                             <Card.Body>
                                 <Card.Title>Europe</Card.Title>
                                 <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
+                                Often described as a "peninsula of peninsulas," Europe is the second smallest continent in size.
                                 </Card.Text>
                                 <Button id="Europe" onClick={handleRegion} variant="primary">Visit</Button>
                             </Card.Body>
@@ -138,8 +136,7 @@ const HomePage = () => {
                             <Card.Body>
                                 <Card.Title>Asia</Card.Title>
                                 <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
+                                Asia is considered to be the largest and most diverse continent due to its historical importance.
                                 </Card.Text>
                                 <Button id="Asia" onClick={handleRegion} variant="primary">Visit</Button>
                             </Card.Body>
@@ -151,8 +148,7 @@ const HomePage = () => {
                             <Card.Body>
                                 <Card.Title>Oceania</Card.Title>
                                 <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
+                                Oceania is a region made up of thousands of islands scattered throughout the Pacific Ocean.
                                 </Card.Text>
                                 <Button id="Oceania" onClick={handleRegion} variant="primary">Visit</Button>
                             </Card.Body>
@@ -164,8 +160,7 @@ const HomePage = () => {
                             <Card.Body>
                                 <Card.Title>Africa</Card.Title>
                                 <Card.Text>
-                                Some quick example text to build on the card title and make up the
-                                bulk of the card's content.
+                                Considered to be the most tropical of all continents, Africa is known for its deserts and rivers.
                                 </Card.Text>
                                 <Button id="Africa" onClick={handleRegion} variant="primary">Visit</Button>
                             </Card.Body>
@@ -173,7 +168,8 @@ const HomePage = () => {
                     </Col>    
                 </Row>
                 
-            </div>
+            {/* </div> */}
+            </Container>
         </div>
         
     )

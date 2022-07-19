@@ -8,7 +8,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Badge from 'react-bootstrap/Badge';
-
+import Container from 'react-bootstrap/Container'
 
 
 function getRandomInt(max) {
@@ -26,6 +26,7 @@ const LocationDetails = () => {
     const [useImg, setUseImg] = useState(true)
     const [imageLinks, setImageLinks] = useState([])
     const [touristLoading, setTouristLoading] = useState(true)
+    const [description, setDescription] = useState("")
 
     // Recieve state passed from navigate
     // Link: https://stackoverflow.com/questions/69714423/how-do-you-pass-data-when-using-the-navigate-function-in-react-router-v6
@@ -126,17 +127,20 @@ const LocationDetails = () => {
                     console.log("regular tourists", result.data)
                     const tourist = result.data.filter(regularCheckTourist)
                     // For wikipedia images
-                    const filteredTourist = result.data.filter(checkTourist)
+                    //const filteredTourist = result.data.filter(checkTourist)
 
-                    if (filteredTourist.length >= 4) {
-                        setAttractions(filteredTourist)
-                        // setUseImg(true)
-                    } else {
-                      setAttractions(tourist)  
-                    //   setUseImg(false)
-                    }
+                    // if (filteredTourist.length >= 4) {
+                    //     setAttractions(filteredTourist)
+                    //     // setUseImg(true)
+                    // } else {
+                    //   setAttractions(tourist)  
+                    // //   setUseImg(false)
+                    // }
+                    
+                    setAttractions(tourist) 
+
                     console.log("regular tourists", result.data)
-                    console.log("filtered tourists", filteredTourist)
+                    // console.log("filtered tourists", filteredTourist)
 
                     console.log("attractions", attractions)
                     setTouristLoading(false)
@@ -160,8 +164,10 @@ const LocationDetails = () => {
         fetchGeoHotels()
 
         fetchTouristSpots()
+        displaySummary()
         window.scrollTo(0, 0)
         // setLoading(false)
+        
     }, [])
 
     // Since setState is an async function, we need to use another useEffect to access the value
@@ -202,7 +208,7 @@ const LocationDetails = () => {
             </div>
             <a href={hotel.properties.datasource.raw.website}>
                 <Badge bg="primary" pill>
-                    More...
+                    Book...
                 </Badge>
             </a>
             
@@ -262,34 +268,13 @@ const LocationDetails = () => {
         return imgAtt
     }
 
-    function displayRegularAttractions () {
-        const regAtt = attractions.slice(0, 5).map((attraction) => (
-            <ListGroup.Item key={attraction.properties.name}
-                as="li"
-                className="d-flex justify-content-between align-items-start"
-             >
-                <div className="ms-2 me-auto">
-            {/* <img className="float-left" style={{ maxWidth: '8rem' }}src={getImgLink(attraction.properties.datasource.raw.wikipedia)}></img> */}
-
-                <div className="fw-bold">{attraction.properties.name}</div>
-
-                {attraction.properties.address_line2}
-                {/* <h1>{getImgLink(attraction.properties.datasource.raw.wikipedia)}</h1> */}
-            </div>
-            
-            </ListGroup.Item>
-        ))
-        return regAtt
+ 
+    const displaySummary = async () => {
+        const locSummary = await axios.get(`${URL}/wikiSummary/${state}`)
+        //console.log(locSummary.data)
+        setDescription(locSummary.data)
     }
-    
-    // useEffect(() => {
-    //     setTimeout(function () {
-    //         console.log("Delayed for 3 second.");
-    //         fetchDetails()
-    //         setLoading(false);
-    //       }, 3000)
-        
-    // }, [])
+
 
     
     return (
@@ -322,17 +307,24 @@ const LocationDetails = () => {
                 </div>
                 {/* <img src={photoLink}></img> */}
             </div>
-            <div className="container">
             
+            <div className="container" style={{marginBottom: 50}}>
+           
             <div className="narrow">
                 <h1 className="home" style={{fontFamily: "Georgia"}}>About {location}</h1>
             </div>
+            <Container className="description">
+                <div className="description-text">
+                    {description}
+                </div>
+                
+            </Container>
 
             <div className="horiz-div">
                 <div className="spaced-apart">
-                    <Card style={{ width: '36rem' }}>
+                    <Card border="info" style={{ width: '36rem' }}>
 
-                    <Card.Header>Popular Hotels</Card.Header>
+                    <Card.Header className="hotel-header-color">Places to Stay</Card.Header>
 
                     {!loading ? (
                         <ListGroup as="ol" numbered>
@@ -349,28 +341,28 @@ const LocationDetails = () => {
                 </div>
                         
                 <div className="spaced-apart">
-                    <Card style={{ width: '36rem' }}>
-                    <Card.Header>Tourist Attractions</Card.Header>
+                    <Card border="info" style={{ width: '36rem' }}>
+                    <Card.Header className="things-to-do-color">Things To Do</Card.Header>
 
                     {/* {!touristLoading && !useImg ? (     */}
                     {!touristLoading ? (
-                    <ListGroup variant="flush">
-                        <ListGroup.Item style={{padding: 0}}>
-                            <div className="card-horizontal">
-                                <Row>
+                    <ListGroup variant="flush" as="ol" numbered>
+                        {/* <ListGroup.Item style={{padding: 0}}> */}
+                            {/* <div className="card-horizontal">
+                                <Row> */}
                                     {/* <Col> */}
                                         {/* <div class="img-square-wrapper"> */}
                                             {/* className='col-6'<img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img> */}
                                         {/* </div> */}
                                     {/* </Col> */}
                                     {/* <Col> */}
-                                        <div className="section">
+                                        {/* <div className="section"> */}
                                         {displayImgAttractions()}
-                                        </div>
+                                        {/* </div> */}
                                     {/* </Col> */}
-                                </Row>
-                            </div>
-                        </ListGroup.Item>  
+                                {/* </Row>
+                            </div> */}
+                        {/* </ListGroup.Item>   */}
                     </ListGroup>
                     ) : (
                         <div className="center-spinner">
@@ -383,9 +375,10 @@ const LocationDetails = () => {
                 </div>
 
             </div>
-            New text below
+            
             
             </div>
+            <br></br>
         </div>
     )
 }
