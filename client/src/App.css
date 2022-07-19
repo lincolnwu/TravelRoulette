@@ -165,3 +165,7 @@ body, html {
   /* align-items: center; */
   /* justify-content: center; */
 }
+
+.spaced-apart {
+  margin-right: 100px;
+}

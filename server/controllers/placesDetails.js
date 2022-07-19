@@ -70,7 +70,7 @@ const geoDetails = async (req, res) => {
         await axios.get(`https://api.geoapify.com/v2/places?categories=accommodation.hotel&filter=place:${placeID}&limit=400&apiKey=${GEO_KEY}`)
         .then(function (response) {
             res.send(response.data.features)
-            console.log(response.data.features)
+            //console.log(response.data.features)
         })
     })
     .catch(err => console.log(err))
@@ -90,19 +90,35 @@ const geoTourist = async (req, res) => {
         return placeID
     })
     .then(async (placeID) => {
-        const ENDPOINT4 =  `https://api.geoapify.com/v2/places?categories=tourism&filter=place:${placeID}&limit=400&apiKey=${GEO_KEY}`
+        const ENDPOINT4 =  `https://api.geoapify.com/v2/places?categories=tourism.attraction&filter=place:${placeID}&limit=400&apiKey=${GEO_KEY}`
         await axios.get(ENDPOINT4)
         .then(function (response) {
             res.send(response.data.features)
-            console.log("did tourism work?", response.data.features)
+            //console.log("did tourism work?", response.data.features)
             console.log("tourism worked ")
         })
     })
     
 }
 
+const getWikiImg = async (req, res) => {
+    console.log("wiki data for img", req.params.location)
+    const queryLocation = req.params.location
+    const ENDPOINT5 = `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${queryLocation}`
+    await axios.get(ENDPOINT5)
+        .then(function (response) {
+            console.log(response)
+        })
+}
+
+const getWikiSummary = async (req, res) => {
+
+}
+
 module.exports = {
     placesDetails,
     geoDetails,
-    geoTourist
+    geoTourist,
+    getWikiImg,
+    getWikiSummary
 }

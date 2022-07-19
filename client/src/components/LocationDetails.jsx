@@ -22,12 +22,16 @@ const LocationDetails = () => {
     const [photoLink, setPhotoLink] = useState('')
     const [loading, setLoading] = useState(true)
     const [hotels, setHotels] = useState([])
+    const [attractions, setAttractions] = useState([])
+    const [useImg, setUseImg] = useState(true)
+    const [imageLinks, setImageLinks] = useState([])
+    const [touristLoading, setTouristLoading] = useState(true)
 
     // Recieve state passed from navigate
     // Link: https://stackoverflow.com/questions/69714423/how-do-you-pass-data-when-using-the-navigate-function-in-react-router-v6
     const { state } = useLocation();
     let location = state
-    console.log("location page received from button: ", location)
+    //console.log("location page received from button: ", location)
     // console.log(photo)
 
     let locationSplit = location.split(', ')
@@ -59,7 +63,7 @@ const LocationDetails = () => {
             // const photoBackground = await axios.get(`${URL}/places/${state}`).then((result) => console.log(result)).catch((err) => console.log(err))
 
             //setPhotoLink(photoBackground)
-            console.log(photoLink)
+            //console.log(photoLink)
 
         } catch (error) {
             console.log(error)
@@ -90,10 +94,10 @@ const LocationDetails = () => {
                     // Filter out hotels with a website
                     const filteredHotels = result.data.filter(checkHotel)
                     const uniqueFilteredHotels = [... new Set(filteredHotels)]
-                    console.log("filtered hotels", uniqueFilteredHotels)
+                    //console.log("filtered hotels", uniqueFilteredHotels)
                     setHotels(filteredHotels)
-                    console.log(hotels)
-                    console.log("after setState", hotels)
+                    //console.log(hotels)
+                    //console.log("after setState", hotels)
                     setLoading(false) // Set loading bar to false
                 })
                 .catch((err) => {console.log(err)})
@@ -106,16 +110,36 @@ const LocationDetails = () => {
 
         const checkTourist = (spot) => {
             let wikiImg = "wikipedia" in spot.properties.datasource.raw
-            return wikiImg
+            let name = "name" in spot.properties
+            return (wikiImg && name)
+        }
+
+        const regularCheckTourist = (spot) => {
+            let name = "name" in spot.properties
+            return name
         }
 
         try {
+            setTouristLoading(true)
             const geoTourist = await axios.get(`${URL}/tourist/${state}`)
                 .then(function (result) {
                     console.log("regular tourists", result.data)
-                    
+                    const tourist = result.data.filter(regularCheckTourist)
+                    // For wikipedia images
                     const filteredTourist = result.data.filter(checkTourist)
+
+                    if (filteredTourist.length >= 4) {
+                        setAttractions(filteredTourist)
+                        // setUseImg(true)
+                    } else {
+                      setAttractions(tourist)  
+                    //   setUseImg(false)
+                    }
+                    console.log("regular tourists", result.data)
                     console.log("filtered tourists", filteredTourist)
+
+                    console.log("attractions", attractions)
+                    setTouristLoading(false)
                 })
                 .catch((err) => console.log(err))
         } catch (error) {
@@ -128,10 +152,10 @@ const LocationDetails = () => {
     // So the effect will only run once the page loads
     useEffect(() => {
         //setLoading(true)
-        console.log(loading)
+        //console.log(loading)
         fetchDetails()
         
-        console.log(loading)
+        //console.log(loading)
         // fetchYelp()
         fetchGeoHotels()
 
@@ -142,25 +166,30 @@ const LocationDetails = () => {
 
     // Since setState is an async function, we need to use another useEffect to access the value
     useEffect(() => {
-        console.log("after second useEffect photoLink", photoLink)
+        //console.log("after second useEffect photoLink", photoLink)
         //setLoading(false)
     }, [photoLink])
     
     useEffect(() => {
-        console.log("after second useEffect", hotels)
+        //console.log("after second useEffect", hotels)
     }, [hotels])
 
     useEffect(() => {
-        console.log("after second useEffect isLoading", loading)
+        //console.log("after second useEffect isLoading", loading)
     }, [loading])
+
+    useEffect(() => {
+
+    }, [touristLoading])
 
     let bgStyle = {
         backgroundImage: 'linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),' + "url(" + photoLink + ")",
     }
-    console.log("hotels?? ", hotels)
+
+    //console.log("hotels?? ", hotels)
     function displayHotels () {
-        console.log("displayhotels", hotels)
-        console.log(hotels[0].properties.datasource)
+        //console.log("displayhotels", hotels)
+        //console.log(hotels[0].properties.datasource)
         const hotelList = hotels.slice(0, 5).map((hotel) => (
             <ListGroup.Item key={hotel.properties.name}
             as="li"
@@ -179,8 +208,78 @@ const LocationDetails = () => {
             
         </ListGroup.Item>
         ))
-        console.log(hotelList)
+        //console.log(hotelList)
         return hotelList
+    }
+
+    const displayImgAttractions =  () => {
+
+        const getImgLink = async (attraction) => {
+            try {
+                //await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${attraction.properties.datasource.raw.wikipedia}`)
+                //await axios.get(`${URL}/wikiImg/`)
+               const imgURL = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&piprop=original&origin=*&titles=${attraction}`)
+               console.log(imgURL.data.query.pages[0].original.source)
+               setImageLinks([...imageLinks, imgURL.data.query.pages[0].original.source])
+               return imgURL.data.query.pages[0].original.source
+                // .then(function (response) {
+                //     //console.log(response.data.query.pages[0].original)
+                //     //const wikiImg = response.data.query.pages[0].original
+                //     //console.log("wiki image: ", wikiImg.source)
+                    
+                //     return response.data.query.pages[0].original
+                    
+                //     //setImageLinks([...imageLinks, wikiImg])
+                    
+                // })
+                //.catch (err => console.log(err))
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        //console.log("img att function", attractions)
+       //console.log("IMAGE LINKS", imageLinks[0])
+        
+        const imgAtt = attractions.slice(0, 5).map((attraction) => (
+            //console.log(getImgLinks(attraction))
+
+            <ListGroup.Item key={attraction.properties.name}
+                as="li"
+                className="d-flex justify-content-between align-items-start"
+            >
+            <div className="ms-2 me-auto">
+            {/* <img className="float-left" style={{ maxWidth: '8rem' }}src={getImgLink(attraction.properties.datasource.raw.wikipedia)}></img> */}
+
+            <div className="fw-bold">{attraction.properties.name}</div>
+                {attraction.properties.address_line2}
+                {/* {attraction.properties.name}!! */}
+                {/* <h1>{getImgLink(attraction.properties.datasource.raw.wikipedia)}</h1> */}
+            </div>
+            {/* <h2>{getImgLinks(attraction)}</h2> */}
+            </ListGroup.Item>
+        ))
+
+        return imgAtt
+    }
+
+    function displayRegularAttractions () {
+        const regAtt = attractions.slice(0, 5).map((attraction) => (
+            <ListGroup.Item key={attraction.properties.name}
+                as="li"
+                className="d-flex justify-content-between align-items-start"
+             >
+                <div className="ms-2 me-auto">
+            {/* <img className="float-left" style={{ maxWidth: '8rem' }}src={getImgLink(attraction.properties.datasource.raw.wikipedia)}></img> */}
+
+                <div className="fw-bold">{attraction.properties.name}</div>
+
+                {attraction.properties.address_line2}
+                {/* <h1>{getImgLink(attraction.properties.datasource.raw.wikipedia)}</h1> */}
+            </div>
+            
+            </ListGroup.Item>
+        ))
+        return regAtt
     }
     
     // useEffect(() => {
@@ -230,7 +329,8 @@ const LocationDetails = () => {
             </div>
 
             <div className="horiz-div">
-                <Card style={{ width: '36rem' }}>
+                <div className="spaced-apart">
+                    <Card style={{ width: '36rem' }}>
 
                     <Card.Header>Popular Hotels</Card.Header>
 
@@ -245,35 +345,45 @@ const LocationDetails = () => {
                             </Spinner>
                         </div>
                     )}
-                </Card>
-
-                <Card style={{ width: '36rem' }}>
+                </Card>        
+                </div>
+                        
+                <div className="spaced-apart">
+                    <Card style={{ width: '36rem' }}>
                     <Card.Header>Tourist Attractions</Card.Header>
+
+                    {/* {!touristLoading && !useImg ? (     */}
+                    {!touristLoading ? (
                     <ListGroup variant="flush">
                         <ListGroup.Item style={{padding: 0}}>
                             <div className="card-horizontal">
                                 <Row>
-                                    <Col>
+                                    {/* <Col> */}
                                         {/* <div class="img-square-wrapper"> */}
-                                            <img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img>
+                                            {/* className='col-6'<img className="float-left" style={{ maxWidth: '8rem' }}src='https://s3-media2.fl.yelpcdn.com/bphoto/iWV-RGF0V_feXhgpboMTIg/o.jpg'></img> */}
                                         {/* </div> */}
-                                    </Col>
-                                    <Col>
+                                    {/* </Col> */}
+                                    {/* <Col> */}
                                         <div className="section">
-                                            <h3>Hi</h3>
+                                        {displayImgAttractions()}
                                         </div>
-                                    </Col>
+                                    {/* </Col> */}
                                 </Row>
                             </div>
-                        </ListGroup.Item>
-                        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+                        </ListGroup.Item>  
                     </ListGroup>
+                    ) : (
+                        <div className="center-spinner">
+                        <Spinner animation="border" role="status" border="primary">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>  
+                    )}
                 </Card>
-            </div>
+                </div>
 
+            </div>
+            New text below
             
             </div>
         </div>
