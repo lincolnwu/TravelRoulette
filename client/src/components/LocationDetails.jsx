@@ -38,7 +38,7 @@ const LocationDetails = () => {
     let city = locationSplit[0]
     let country = locationSplit[1]
 
-    const URL = "http://localhost:5000"
+    const URL = "http://3.82.189.184:5000"
     
     // Make call to backend for photo background
     const fetchDetails = async () => {
