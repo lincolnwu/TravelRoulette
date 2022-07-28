@@ -28,3 +28,7 @@ hotels and tourist attraction sites. You can also sort by geographical region to
 
 ## Preview
 ![alt text](https://github.com/lincolnwu/TravelRoulette/blob/master/tr_homepage.png)
+
+## Example location
+![alt text](https://github.com/lincolnwu/TravelRoulette/blob/master/tr_berlin1.png)
+![alt text](https://github.com/lincolnwu/TravelRoulette/blob/master/tr_berlin2.png)
