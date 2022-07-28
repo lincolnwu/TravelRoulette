@@ -23,7 +23,8 @@ hotels and tourist attraction sites. You can also sort by geographical region to
 - Axios
 - Geoapify API
 - Pixabay API
-- AWS EC2 
+- Wikipedia API
+- AWS EC2
 - NGINX
 
 ## Preview
