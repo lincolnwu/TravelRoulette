@@ -25,3 +25,6 @@ hotels and tourist attraction sites. You can also sort by geographical region to
 - Pixabay API
 - AWS EC2 
 - NGINX
+
+## Preview
+![alt text](https://github.com/lincolnwu/TravelRoulette/blob/master/tr_homepage.png)
