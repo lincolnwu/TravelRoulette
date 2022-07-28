@@ -2,7 +2,7 @@
 Travel Roulette is a travel application where users can randomly choose a vacation destination based on geographical region.
 
 ## Description
-Have you ever been stuck deciding on where to travel? This website randomly chooses a location around the world and provides information about nearby
+Can't decide where to travel? This website randomly chooses a location around the world and provides information about nearby
 hotels and tourist attraction sites. You can also sort by geographical region to narrow down your search. 
 
 ## How to Run the Project
