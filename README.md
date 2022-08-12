@@ -1,5 +1,5 @@
 # Travel Roulette
-Travel Roulette is a travel application where users can randomly choose a vacation destination based on geographical region.
+Travel Roulette is a travel application where users can randomly choose a vacation destination based on geographical region. Currently deployed at: https://travelroulettesite.herokuapp.com/
 
 ## Description
 Can't decide where to travel? This website randomly chooses a location around the world and provides information about nearby
