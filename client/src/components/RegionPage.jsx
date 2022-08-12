@@ -15,7 +15,7 @@ const RegionPage = () => {
     const { state } = useLocation()
     // const URL = "http://3.82.189.184:5000" AWS
     // const URL = "http://localhost:5000"
-    const URL = "https://travelrouletteapp.herokuapp.com/"
+    const URL = "https://travelrouletteapp.herokuapp.com"
 
     console.log("Region page received:", state)
 
